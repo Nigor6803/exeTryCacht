@@ -1,5 +1,7 @@
 package model.entidade;
 
+import exception.ExceptionDomain;
+
 public class Conta {
 	private Integer conta;
 	private String nome;
@@ -44,23 +46,32 @@ public class Conta {
 		this.limiteMovimento = limiteMovimento;
 	}
 	
-	public void deposito(Double deposito) {
-		double soma = getQuantidade();
-		soma = quantidade+deposito;				
+	public void deposito(Double quantia) {
+		quantidade += quantia;				
 	}
 	
-	public void retirada(Double retirada) {
-		double soma = getQuantidade();
-		soma = quantidade-retirada;				
+	public void retirada(Double quantia) {
+		quantidade -= quantia;				
+	}
+	
+	public void validaçãoDeMovimentação(double quantia) {
+		if(quantia>getLimiteMovimento()) {
+			throw new ExceptionDomain("ERRO: LIMITE DE SAQUE EXCEDIDO");
+		}if(quantia>quantidade) {
+			throw new ExceptionDomain("ERRO: SALDO INSUFICIENTE");
+		} 
 	}
 	
 	@Override
 	public String toString() {
-		return "ENTRE COM OS DADOS DA CONTA"
-				+"NUMERO DA CONTA: "+ conta +"/n"
-				+"TITULAR: "+ nome+"/n"
-				+"VALOR DA CONTA: R$"+quantidade+"/n"
-				+"LIMITE PARA RETIRADA: R$"+ limiteMovimento+"/n"
-				+"                  /n";
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("ENTRE COM OS DADOS DA CONTA");
+		sb.append(" - NUMERO DA CONTA: "+ conta);
+		sb.append(" - TITULAR: "+ nome);
+		sb.append(" - VALOR DA CONTA: R$"+quantidade);
+		sb.append(" - LIMITE PARA RETIRADA: R$"+ limiteMovimento);
+		
+		return sb.toString();
 	}
 }
