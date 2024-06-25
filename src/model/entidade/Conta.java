@@ -46,20 +46,21 @@ public class Conta {
 		this.limiteMovimento = limiteMovimento;
 	}
 	
-	public void deposito(Double quantia) {
-		quantidade += quantia;				
-	}
-	
-	public void retirada(Double quantia) {
-		quantidade -= quantia;				
-	}
-	
 	public void validaçãoDeMovimentação(double quantia) {
 		if(quantia>getLimiteMovimento()) {
 			throw new ExceptionDomain("ERRO: LIMITE DE SAQUE EXCEDIDO");
 		}if(quantia>quantidade) {
 			throw new ExceptionDomain("ERRO: SALDO INSUFICIENTE");
 		} 
+	}
+	
+	public void deposito(Double quantia) {
+		quantidade += quantia;				
+	}
+	
+	public void retirada(Double quantia) {
+		validaçãoDeMovimentação(quantia);
+		quantidade -= quantia;				
 	}
 	
 	@Override

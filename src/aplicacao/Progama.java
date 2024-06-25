@@ -19,7 +19,7 @@ public class Progama {
 		String nome = edd.nextLine();
 		System.out.print("VALOR INICIAL: R$");
 		double valor = edd.nextDouble();
-		System.out.print("LIMITE PARA DEPOSITO: R$");
+		System.out.print("LIMITE PARA SAQUE: R$");
 		double limite = edd.nextDouble();
 		
 		Conta conta = new Conta(numero,nome,valor,limite);
